@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>LAND TALK {{submission.location}}</title></title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href={% static "css/normalize.css" %}>
+  <link rel="stylesheet" href={% static "css/skeleton.css" %}>
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+   <style>
+       #map {
+        height: 500px;
+        width: 100%;
+       }
+    </style>
+</head>
+
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <!-- Header -->
+    <div class="row">
+        <div class="eight columns" style="margin-top: 5%">
+            <!-- TODO: add case for NEW POST and active link highlighting in navbar-->
+            {% url 'index' as indexUrl %}
+            {% url 'faq' as faqUrl %}
+            {% url 'about' as aboutUrl %}
+            {% url 'submission_new' as newUrl %}
+            
+<!-- <a href="{{ url }}"{% if request.path == url %} class="active"{% endif %}>Some Link</a> -->
+  
+            {% if submission.location %}
+            <h4><a href = "{% url 'index' %}" >LAND TALK</a> | {{submission.location}}</h4>
+            {% elif request.path == indexUrl %}
+            <h4>LAND TALK</h4>
+            {% elif request.path ==  faqUrl %}
+            <h4><a href = "{% url 'index' %}" >LAND TALK</a> | faq </h4>
+            {% elif request.path == aboutUrl %}
+            <h4><a href = "{% url 'index' %}" >LAND TALK</a> | about </h4>
+            {% elif request.path == newUrl %}
+            <h4><a href = "{% url 'index' %}" >LAND TALK</a> | add </h4>
+            {% else %}
+            <h4><a href = "{% url 'index' %}" >LAND TALK</a></h4>
+            {% endif %}
+        </div>
+        <div class="four columns" style="margin-top: 5%">
+            <h6 style="text-align: right"><a href="{% url 'submission_new' %}" class="top-menu">add</a> | <a href="{% url 'faq' %}"{% if request.path == faqUrl %} class="active"{% endif %}>faq</a> | <a href = "{% url 'about' %}"{% if request.path == aboutUrl %} class="active"{% endif %}>about</a></h6>
+        </div>
+    </div> 
+     <!-- End Header -->
+    {% block content %}
+    {% endblock %}
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>

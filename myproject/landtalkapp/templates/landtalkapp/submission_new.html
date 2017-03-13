@@ -1,0 +1,20 @@
+{% extends 'landtalkapp/base.html' %}
+
+{% block content %}	
+<div class="row">
+    <div class="twelve columns" style="margin-top: 5%">
+        <p>To add a marker with a video to the land talk map, you will need:
+			<li>the basic interview questions here</li>
+			<li>a youtube video of your interview with the observer</li>
+			<li>some info about your location</li>
+			<li>some notes on what you talked about. </li>
+		</p>     
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data" style="margin-top: 5%">
+{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="save btn btn-default">Save</button>
+</form>
+{% endblock %}

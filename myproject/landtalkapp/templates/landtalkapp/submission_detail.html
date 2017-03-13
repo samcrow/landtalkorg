@@ -1,0 +1,33 @@
+{% extends 'landtalkapp/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="eight columns" style="margin-top: 5%">
+        <h5>{{submission.observer}} at {{submission.location}}</h5>
+        <iframe width="560" height="315" src="{{submission.videourl}}" frameborder="0" allowfullscreen></iframe>
+        <h5>Summary</h5>
+        <p>{{submission.summary}}</p>
+    </div>
+    <div class="four columns" style="margin-top: 5%">
+        <h5>Observer</h5>
+        <p>{{submission.observer}} was interviewed by {{submission.interviewer}}. </p>
+        <h5>Key Issues</h5>
+        <p>{{submission.key_words}} </p>
+        <h5>Contact Organization</h5>
+        <p><a href = {{submission.contact_org}}>{{submission.contact_org}}</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="six columns" style="margin-top: 5%">
+     <h5>{{submission.location}}, {{submission.hist_year}}</h5>
+     <img src="{% get_media_prefix %}/{{submission.hist_img}}" alt={{submission.location}} width="100%">
+     <p>{{submission.hist_caption}}</p> 
+    </div>
+    <div class="six columns" style="margin-top: 5%">
+      <h5>{{submission.location}}, {{submission.curr_year}}</h5>
+      <img src="{% get_media_prefix %}/{{submission.curr_img}}" alt={{submission.location}} width="100%">
+      <p>{{submission.curr_caption}}</p>
+    </div>
+</div>  
+{% endblock %}

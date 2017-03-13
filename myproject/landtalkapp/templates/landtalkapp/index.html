@@ -1,0 +1,145 @@
+{% extends 'landtalkapp/base.html' %}
+
+{% block content %}
+    <div class="row">
+      <div class="one-half column" style="margin-top: 5%">
+        <p>
+        This map shows what changes people have noticed in their lifetimes in a place they know well. Click on any map marker to open a video about that marked place. 
+        </p>
+      </div>
+        <div class="one-half column" style="margin-top: 5%">
+        <p>Land Talk stories are made entirely by volunteers. To add your story to the map, click <a href="{% url 'submission_new' %}" class="top-menu">here</a> and post links to your videos and photos.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="twelve columns" style="margin-top: 5%">
+         <div id="map"></div>
+    <script>
+    
+       
+      
+      function initMap() {
+        
+        var styledMapType = new google.maps.StyledMapType(
+            [
+  {
+    "elementType": "labels",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.land_parcel",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  },
+  {
+    "featureType": "road",
+    "stylers": [
+      {
+        "visibility": "off"
+      }
+    ]
+  }
+],
+            {name: 'Styled Map'}); 
+        
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: new google.maps.LatLng(39.8282, -98.5795),
+        });
+        map.mapTypes.set('styled_map', styledMapType);
+        map.setMapTypeId('styled_map');
+        //load from XML
+        
+          var infoWindow = new google.maps.InfoWindow;
+
+          // Change this depending on the name of your PHP or XML file
+          downloadUrl('/mapQuery', function(data) {
+            var xml = data.responseXML;
+            var markers = xml.documentElement.getElementsByTagName('object');
+
+            Array.prototype.forEach.call(markers, function(markerElem) {
+              var privkey = parseFloat(markerElem.getAttribute('pk'));
+              var fields = markerElem.getElementsByTagName('field');
+              console.log(fields); 
+              var name = fields[0].innerHTML
+              var youtube = fields[3].innerHTML
+              var point = new google.maps.LatLng(
+                parseFloat(fields[1].innerHTML),
+                parseFloat(fields[2].innerHTML)); 
+              var link = "/submission/" + privkey; 
+
+              var infowincontent = document.createElement('div');
+              var title = document.createElement("a");
+              var video = document.createElement("iframe");
+              
+              //deal with video
+              video.setAttribute("src", youtube);
+              video.setAttribute("width", "100%");
+              video.setAttribute("height", "100%");
+              video.setAttribute("frameBorder", "0");
+              
+              //deal with text
+              var n = document.createTextNode(name);
+              var f = document.createElement("h6")
+              f.appendChild(n); 
+              title.setAttribute("href", link);
+              title.appendChild(f);
+             
+              //append
+              infowincontent.appendChild(title);
+              infowincontent.appendChild(video);
+              
+              var marker = new google.maps.Marker({
+                map: map,
+                position: point,
+              });
+              marker.addListener('click', function() {
+                infoWindow.setContent(infowincontent);
+                infoWindow.open(map, marker);
+              });
+            });
+          });
+        }
+    
+      function downloadUrl(url, callback) {
+              console.log("hey");
+              var request = window.ActiveXObject ?
+                  new ActiveXObject('Microsoft.XMLHTTP') :
+                  new XMLHttpRequest;
+              request.onreadystatechange = function() {
+                if (request.readyState == 4) {
+                  request.onreadystatechange = doNothing;
+                  callback(request, request.status);
+                }
+              };
+              request.open('GET', url, true);
+              request.send(null);
+            }
+      function doNothing() {}
+
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_V0CYNfApepOho8DB9y1bl98Orb3DcFM&callback=initMap">
+    </script>
+      </div>
+    </div>
+    <div class="row">
+      <div class="twelve columns" style="margin-top: 5%">
+      LAND TALK is made by the individual content providers and is hosted at Stanford University, with a <a href="https://creativecommons.org/licenses/by-nc/3.0/us/">Creative Commmons CC BY-NC 3.0 US license </a>, 2017. 
+      </div>  
+    </div>  
+{% endblock %}

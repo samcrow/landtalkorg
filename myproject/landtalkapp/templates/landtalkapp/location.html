@@ -1,0 +1,82 @@
+<!-- {% extends 'landtalkapp/base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if submission.published_date %}
+            <div class="date">
+                {{ submission.published_date }}
+            </div>
+        {% endif %}
+        <a class="btn btn-default" href="{% url 'submission_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+        <h1>{{ submission.location }}</h1>
+        <p>{{ submission.summary|linebreaksbr }}</p>
+    </div>
+{% endblock %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>LAND TALK: Maona Loa</title></title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="../../static/css/normalize.css">
+  <link rel="stylesheet" href="../../static/css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+<a href="{% url 'submission_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span>Make a New Post</a>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+  	 <div class="row">
+  	 	<div class="twelve columns" style="margin-top: 5%">
+  	 	<h4><a href = "http://www.landtalk.org/index.html" >LAND TALK</a> | MAONA LOA, HAWAII</h4>
+  	 	</div>
+  	 </div>	
+    <div class="row">
+    	<div class="eight columns" style="margin-top: 5%">
+        <h5>News Video</h5>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/y0qDc4hXUSY" frameborder="0" allowfullscreen></iframe>
+		<h5>Summary</h5>
+        <p>This mountain is sacred to us and we oppose any further construction of observatories.</p>
+      </div>
+      <div class="four columns" style="margin-top: 5%">
+      	<h5>Observer</h5>
+      	<p>TBD</p>
+        <h5>Key Issues</h5>
+		<p>Indigenous Land Rights</p>
+        <h5>Contact Person</h5>
+        <p>TBD</p>
+        <h5>Related Sites</h5>
+			 <li>Barrow, AK</li>
+			 <li>Maori</li>
+      </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
+
