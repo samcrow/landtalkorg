@@ -19,7 +19,7 @@ from django.utils.deconstruct import deconstructible
 #         else:
 #             # set filename as random string
 #             filename = '{}.{}'.format(uuid4().hex, name)
-        
+
 #         print "filename: ", filename
 #         # return the whole path to the file
 #         return os.path.join(path, filename)
@@ -54,17 +54,17 @@ class Submission(models.Model):
     interviewer = models.CharField(('Your first and last name'), max_length=50, blank=True) #check this max length
     observer = models.CharField(('Frst and last name of the Observer'), max_length=50, blank=True)
     contact_org = models.URLField(('For public lands, enter the name of the managing organization (for example, State Park System)'), blank=True)
-    videourl = models.URLField(('Your complete video URL (for example: https://youtu.be/EcSzOnY7uEY)'), blank=True) 
+    videourl = models.URLField(('Your complete video URL (for example: https://youtu.be/EcSzOnY7uEY)'), blank=True)
 
     hist_img = models.ImageField(('Upload a historical image of the location'), upload_to=path_and_rename('hist'),blank=True)
     hist_year = models.IntegerField(('Enter the year the historical image was taken'), choices=YEAR_CHOICES, default=defaultYear(),blank=True)
-    hist_caption = models.CharField(('Write a caption for the historical image'), max_length=200, blank=True) 
+    hist_caption = models.CharField(('Write a caption for the historical image'), max_length=200, blank=True)
     curr_img = models.ImageField(('Upload a current image of the location'), upload_to=path_and_rename('curr'),blank=True)
     curr_year = models.IntegerField(('Enter the year the current image was taken'), choices=YEAR_CHOICES, default=defaultYear(), blank=True)
     curr_caption = models.CharField(('Write a caption for the current image'), max_length=200, blank=True)
-    
-    time_submitted = models.DateTimeField(auto_now_add = True) 
-    time_posted = models.DateTimeField(null = True) 
+
+    time_submitted = models.DateTimeField(auto_now_add = True)
+    time_posted = models.DateTimeField(null = True)
 
     summary = models.TextField(('Write a brief summary of the video: Who says what about land and weather (max length 200 characters)'), max_length=200)
     look = models.TextField(('How did your observer describe the way the place used to look? (max length 200 characters)'), max_length=200)
@@ -90,4 +90,4 @@ class Submission(models.Model):
         self.save()
 
     def __str__(self):
-        return self.location #?
+        return '{} submitted by {}'.format(self.location, self.interviewer) #?
