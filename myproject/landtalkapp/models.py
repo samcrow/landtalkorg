@@ -72,6 +72,10 @@ class Submission(models.Model):
     current_do = models.TextField(('What are some of the things your observer does here now? (max length 200 characters)'), max_length=200)
     key_words = models.TextField(('Add key words, separated by a comma (for example: dry creek, flood in spring, frogs)'))
 
+    class Meta:
+        # Sort by location
+        ordering = ["location"]
+
     def save(self, *args, **kwargs):
         if self.pub is True:
             self.time_posted = timezone.now()
@@ -90,4 +94,4 @@ class Submission(models.Model):
         self.save()
 
     def __str__(self):
-        return '{} submitted by {}'.format(self.location, self.interviewer) #?
+        return '{} submitted by {}'.format(self.location, self.interviewer)
