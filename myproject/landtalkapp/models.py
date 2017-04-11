@@ -73,8 +73,8 @@ class Submission(models.Model):
     key_words = models.TextField(('Add key words, separated by a comma (for example: dry creek, flood in spring, frogs)'))
 
     class Meta:
-        # Sort by location
-        ordering = ["location"]
+        # Sort by location (ascending), then by time submitted (descending)
+        ordering = ["location", "time_submitted"]
 
     def save(self, *args, **kwargs):
         if self.pub is True:
